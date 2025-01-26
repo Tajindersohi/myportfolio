@@ -39,8 +39,6 @@ $(document).ready(function () {
 
     // <!-- emailjs to mail contact form data -->
     $("#contact-form").submit(function (event) {
-        emailjs.init("user_TTDmetQLYgWCLzHTDgqxm");
-
         emailjs.sendForm('contact_service', 'template_contact', '#contact-form')
             .then(function (response) {
                 console.log('SUCCESS!', response.status, response.text);
@@ -59,7 +57,7 @@ $(document).ready(function () {
 document.addEventListener('visibilitychange',
     function () {
         if (document.visibilityState === "visible") {
-            document.title = "Portfolio | Jigar Sable";
+            document.title = "Portfolio | Tajinder Sohi";
             $("#favicon").attr("href", "assets/images/favicon.png");
         }
         else {
@@ -71,7 +69,7 @@ document.addEventListener('visibilitychange',
 
 // <!-- typed js effect starts -->
 var typed = new Typed(".typing-text", {
-    strings: ["frontend development", "backend development", "web designing", "android development", "web development"],
+    strings: ["frontend developer", "backend developer", "Full Stack developer", "web developer"],
     loop: true,
     typeSpeed: 50,
     backSpeed: 25,
@@ -104,60 +102,60 @@ function showSkills(skills) {
     skillsContainer.innerHTML = skillHTML;
 }
 
-function showProjects(projects) {
-    let projectsContainer = document.querySelector("#work .box-container");
-    let projectHTML = "";
-    projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
-        projectHTML += `
-        <div class="box tilt">
-      <img draggable="false" src="/assets/images/projects/${project.image}.png" alt="project" />
-      <div class="content">
-        <div class="tag">
-        <h3>${project.name}</h3>
-        </div>
-        <div class="desc">
-          <p>${project.desc}</p>
-          <div class="btns">
-            <a href="${project.links.view}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
-            <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>`
-    });
-    projectsContainer.innerHTML = projectHTML;
+// function showProjects(projects) {
+//     let projectsContainer = document.querySelector("#work .box-container");
+//     let projectHTML = "";
+//     projects.slice(0, 10).filter(project => project.category != "android").forEach(project => {
+//         projectHTML += `
+//         <div class="box tilt">
+//       <img draggable="false" src="/assets/images/projects/${project.image}.png" alt="project" />
+//       <div class="content">
+//         <div class="tag">
+//         <h3>${project.name}</h3>
+//         </div>
+//         <div class="desc">
+//           <p>${project.desc}</p>
+//           <div class="btns">
+//             <a href="${project.links.view}" class="btn" target="_blank"><i class="fas fa-eye"></i> View</a>
+//             <a href="${project.links.code}" class="btn" target="_blank">Code <i class="fas fa-code"></i></a>
+//           </div>
+//         </div>
+//       </div>
+//     </div>`
+//     });
+//     projectsContainer.innerHTML = projectHTML;
 
-    // <!-- tilt js effect starts -->
-    VanillaTilt.init(document.querySelectorAll(".tilt"), {
-        max: 15,
-    });
-    // <!-- tilt js effect ends -->
+//     // <!-- tilt js effect starts -->
+//     VanillaTilt.init(document.querySelectorAll(".tilt"), {
+//         max: 5,
+//     });
+//     // <!-- tilt js effect ends -->
 
-    /* ===== SCROLL REVEAL ANIMATION ===== */
-    const srtop = ScrollReveal({
-        origin: 'top',
-        distance: '80px',
-        duration: 1000,
-        reset: true
-    });
+//     /* ===== SCROLL REVEAL ANIMATION ===== */
+//     const srtop = ScrollReveal({
+//         origin: 'top',
+//         distance: '80px',
+//         duration: 1000,
+//         reset: true
+//     });
 
-    /* SCROLL PROJECTS */
-    srtop.reveal('.work .box', { interval: 200 });
+//     /* SCROLL PROJECTS */
+//     srtop.reveal('.work .box', { interval: 200 });
 
-}
+// }
 
-fetchData().then(data => {
-    showSkills(data);
-});
+// fetchData().then(data => {
+//     showSkills(data);
+// });
 
-fetchData("projects").then(data => {
-    showProjects(data);
-});
+// fetchData("projects").then(data => {
+//     showProjects(data);
+// });
 
 // <!-- tilt js effect starts -->
-VanillaTilt.init(document.querySelectorAll(".tilt"), {
-    max: 15,
-});
+// VanillaTilt.init(document.querySelectorAll(".tilt"), {
+//     max: 15,
+// });
 // <!-- tilt js effect ends -->
 
 
@@ -189,18 +187,6 @@ document.onkeydown = function (e) {
         return false;
     }
 }
-
-// Start of Tawk.to Live Chat
-var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-(function () {
-    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-    s1.async = true;
-    s1.src = 'https://embed.tawk.to/60df10bf7f4b000ac03ab6a8/1f9jlirg6';
-    s1.charset = 'UTF-8';
-    s1.setAttribute('crossorigin', '*');
-    s0.parentNode.insertBefore(s1, s0);
-})();
-// End of Tawk.to Live Chat
 
 
 /* ===== SCROLL REVEAL ANIMATION ===== */
@@ -249,3 +235,52 @@ srtop.reveal('.experience .timeline .container', { interval: 400 });
 /* SCROLL CONTACT */
 srtop.reveal('.contact .container', { delay: 400 });
 srtop.reveal('.contact .container .form-group', { delay: 400 });
+
+
+  // Initialize the phone number mask
+  var phoneMask = IMask(
+    document.getElementById('phone'), {
+        mask: '(000) 000-0000'
+    }
+);
+
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Collect the form data
+    const formData = new FormData(event.target);
+
+    // Convert FormData to a plain object
+    const formObject = {};
+    formData.forEach((value, key) => {
+      formObject[key] = value;
+    });
+
+    // Convert the object to JSON
+    const json = JSON.stringify(formObject);
+
+    // Make the fetch request
+    fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: json
+    })
+    .then(async (response) => {
+      const data = await response.json();
+      if (response.status === 200) {
+        alert('Form submitted successfully!');
+        console.log('Response:', data);
+        event.target.reset(); // Reset the form fields
+      } else {
+        alert('Something went wrong!');
+        console.log('Error Response:', data);
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      alert('An error occurred. Please try again later.');
+    });
+  });

@@ -215,7 +215,7 @@ header .navbar ul li a:hover {
   width: 70%;
   margin-left: 6rem;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
 .home .image img:hover {
@@ -484,6 +484,9 @@ header .navbar ul li a:hover {
   flex-wrap: wrap;
   gap: 1.8rem;
 }
+.skill-heading {
+  align-self:center ;
+}
 .skills .container .bar {
   margin-bottom: 15px;
   padding: 10px;
@@ -512,6 +515,7 @@ header .navbar ul li a:hover {
   font-family: "Poppins";
   margin-left: 0.5rem;
 }
+
 /* skills media queries starts*/
 @media screen and (max-width: 600px) {
   .skills .container {
@@ -663,39 +667,64 @@ header .navbar ul li a:hover {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   position: relative;
   overflow: hidden;
-  height: 30rem;
+  transition:  height linear .9s;
+  height: 10rem;
 }
 .work .box-container .box img {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
-.work .box-container .box .content {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 85%;
-  left: 0;
-  background: rgba(255, 255, 255, 0.9);
-  display: flex;
-  flex-direction: column;
+.work .box-container .box {
+  position: relative;
+  height: 15rem; /* Default collapsed height */
+  overflow: hidden; /* Prevent overflow of the content */
+  transition: height  ease 0.7s; /* Smooth transition on hover */
 }
-.work .box-container .box .content .tag {
+
+.work .box-container .box:hover {
+  height: 30rem; /* Expanded height on hover */
+}
+
+.work .box-container .box .tag {
+  position: absolute; /* Keep it at the top of the box */
+  top: 0;
+  left: 0;
+  z-index: 1; /* Ensure it stays above the content */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   height: 4.5rem;
+  font-size: large;
   width: 100%;
   padding-left: 1rem;
   background: #ffd900;
 }
-.work .box-container .box .content .tag h3 {
-  font-size: 2rem;
+
+.work .box-container .box .content {
+  position: absolute;
+  top: 4.5rem; /* Start just below the tag */
+  left: 0;
+  width: 100%;
+  height: calc(100% - 4.5rem); /* Occupy the rest of the box */
+  background: rgba(255, 255, 255, 0.9);
+  overflow-y: auto; /* Enable scrolling for the content */
+  display: flex;
+  flex-direction: column;
+  transform: translateY(100%);
+  transition: transform 0.3s ease; /* Smooth reveal effect */
 }
+
 .work .box-container .box:hover .content {
-  top: 25%;
+  transform: translateY(0); 
 }
+
+.work .box-container .box .content .desc {
+  padding: 1rem;
+}
+
+
 .work .desc {
   margin: 2rem;
   display: flex;
@@ -1223,3 +1252,113 @@ form .button-area {
   top: calc(100% - 12rem);
 }
 /* scroll top ends */
+
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+@media (max-width: 1800px) {
+  .projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 800px) {
+  .projects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 40px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+/* Project Box */
+.projects .box {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.projects .box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Image */
+.box img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Content */
+.tag h3 {
+  margin: 10px 15px;
+  font-size: 1.2rem;
+  color: #2d87f0;
+  transition: color 0.3s ease;
+}
+
+.tag h3 a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.tag h3 a:hover {
+  color: #0056b3;
+}
+
+.desc {
+  padding: 15px;
+}
+
+.desc p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* Buttons */
+.btns {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  background: #2d87f0;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+.btn.disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.btn i {
+  margin-right: 5px;
+}
