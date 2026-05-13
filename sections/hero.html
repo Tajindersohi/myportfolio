@@ -1,16 +1,29 @@
-<section class="hero" id="home">
-  <div class="hero-gradient"></div>
-  <div class="hero-orb orb-1"></div>
-  <div class="hero-orb orb-2"></div>
+<section class="hero" id="home" aria-label="Introduction">
+  <div class="hero-atmosphere" aria-hidden="true">
+    <div class="hero-mesh"></div>
+    <div class="hero-orb-shell orb-1">
+      <div class="hero-orb"></div>
+    </div>
+    <div class="hero-orb-shell orb-2">
+      <div class="hero-orb"></div>
+    </div>
+  </div>
 
   <div class="hero-grid no-image">
-    <div class="hero-content glass-card morph-source">
-      <span class="badge">Full Stack Developer</span>
-      <h1>
-        Hi, I'm <span>Tajinder</span><br />
-        <span class="gradient-text">Building the Future of Web</span>
+    <div class="hero-content">
+      <span class="badge">Software Engineer</span>
+
+      <h1 class="hero-title">
+        Hi, I'm <span class="gradient-text hero-name">Tajinder</span><br />
+        <span class="hero-line-white">Building the Future of Web</span>
       </h1>
+
       <p class="subtitle">MERN Stack Engineer - SaaS Builder - UI Motion Specialist</p>
+
+      <p class="hero-typewriter" aria-live="polite">
+        <span class="hero-typewriter-text" id="hero-typewriter-text"></span><span class="hero-typewriter-cursor" aria-hidden="true">|</span>
+      </p>
+
       <p class="desc">
         I design and build scalable, lightning-fast web applications with cinematic interfaces and rock-solid backend architecture.
       </p>
@@ -20,17 +33,33 @@
         <a href="#contact" class="btn magnetic ghost">Hire Me</a>
       </div>
 
-      <div class="socials">
-        <a href="https://linkedin.com/in/tajinder-sohi-251817221/" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://github.com/Tajindersohi" target="_blank"><i class="fab fa-github"></i></a>
-        <a href="https://instagram.com/_sohi_lucky/" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="#"><i class="fab fa-twitter"></i></a>
+      <div class="hero-stats reveal">
+        <div class="hero-stat">
+          <span class="hero-stat-num">3+ Years</span>
+          <span class="hero-stat-label">Experience</span>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">20+</span>
+          <span class="hero-stat-label">Projects Delivered</span>
+        </div>
+        <div class="hero-stat-divider" aria-hidden="true"></div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">10+</span>
+          <span class="hero-stat-label">Happy Clients</span>
+        </div>
+      </div>
+
+      <div class="socials" aria-label="Social profiles">
+        <a href="https://linkedin.com/in/tajinder-sohi-251817221/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+        <a href="https://github.com/Tajindersohi" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
+        <a href="https://instagram.com/_sohi_lucky/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
       </div>
     </div>
-
   </div>
 
-  <div class="scroll-indicator">
-    <span></span>
+  <div class="scroll-indicator" aria-hidden="true">
+    <i class="fas fa-chevron-down"></i>
   </div>
 </section>

@@ -1,10 +1,15 @@
-<header class="glass-nav">
-  <div class="logo">Tajinder<span>.</span></div>
-  <div class="menu-toggle"><i class="fas fa-bars"></i></div>
-  <nav>
+<header class="glass-nav" role="banner">
+  <div class="logo" aria-label="Site logo">Tajinder<span class="dot">.</span></div>
+
+  <div class="menu-toggle" role="button" tabindex="0" aria-label="Toggle navigation menu" aria-controls="site-nav">
+    <i class="fas fa-bars" aria-hidden="true"></i>
+  </div>
+
+  <nav id="site-nav" aria-label="Primary">
     <a href="#home" class="active">Home</a>
     <a href="#about">About</a>
     <a href="#skills">Skills</a>
+    <a href="#services">Services</a>
     <a href="#education">Education</a>
     <a href="#work">Projects</a>
     <a href="#experience">Experience</a>

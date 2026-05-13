@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tajinder Sohi | Glass Motion Portfolio</title>
+  <title>Tajinder Sohi | Software Engineer</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
@@ -18,6 +18,7 @@
     <div id="hero-slot"></div>
     <div id="about-slot"></div>
     <div id="skills-slot"></div>
+    <div id="services-slot"></div>
     <div id="education-slot"></div>
     <div id="projects-slot"></div>
     <div id="experience-slot"></div>
@@ -40,6 +41,7 @@
         loadPartial("hero-slot", "./sections/hero.html"),
         loadPartial("about-slot", "./sections/about.html"),
         loadPartial("skills-slot", "./sections/skills.html"),
+        loadPartial("services-slot", "./sections/services.html"),
         loadPartial("education-slot", "./sections/education.html"),
         loadPartial("projects-slot", "./sections/projects.html"),
         loadPartial("experience-slot", "./sections/experience.html"),
@@ -125,8 +127,8 @@
           const y = e.clientY - rect.top;
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
-          const rotateX = -(y - centerY) / 20;
-          const rotateY = (x - centerX) / 20;
+          const rotateX = -(y - centerY) / 15;
+          const rotateY = (x - centerX) / 15;
           card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
         });
         card.addEventListener("mouseleave", () => {
@@ -151,25 +153,115 @@
 
       const bg = document.querySelector(".bg-particles");
       if (bg) {
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 60; i++) {
           const p = document.createElement("span");
+          const size = 2 + Math.random() * 4;
+          p.style.width = `${size}px`;
+          p.style.height = `${size}px`;
           p.style.left = Math.random() * 100 + "%";
           p.style.top = Math.random() * 100 + "%";
           p.style.animationDelay = Math.random() * 10 + "s";
           p.style.animationDuration = 10 + Math.random() * 20 + "s";
+          if (Math.random() < 0.3) {
+            p.style.background =
+              Math.random() < 0.5
+                ? "radial-gradient(circle, rgba(124,58,237,0.85), transparent)"
+                : "radial-gradient(circle, rgba(6,182,212,0.75), transparent)";
+          } else {
+            p.style.background = "radial-gradient(circle, rgba(241,245,249,0.35), transparent)";
+          }
           bg.appendChild(p);
         }
       }
+
+      initExtras();
     }
 
-    (async () => {
-      try {
-        await loadSections();
-        initInteractions();
-      } catch (error) {
-        console.error(error);
-      }
-    })();
+    function initExtras() {
+      initHeroTypewriter();
+      initSkillProficiencyBars();
+    }
+
+    function initHeroTypewriter() {
+      const textEl = document.querySelector(".hero-typewriter-text");
+      if (!textEl || window.__heroTypingStarted) return;
+      window.__heroTypingStarted = true;
+      const strings = ["MERN Stack Engineer", "SaaS Builder", "UI Motion Specialist"];
+      let si = 0;
+      let ch = 0;
+      let deleting = false;
+      let pauseTicks = 0;
+      const pauseAfterWord = 22;
+      const pauseBetweenWords = 8;
+
+      setInterval(() => {
+        if (pauseTicks > 0) {
+          pauseTicks--;
+          return;
+        }
+        const str = strings[si];
+        if (!deleting) {
+          if (ch < str.length) {
+            ch++;
+            textEl.textContent = str.slice(0, ch);
+          } else {
+            pauseTicks = pauseAfterWord;
+            deleting = true;
+          }
+        } else {
+          if (ch > 0) {
+            ch--;
+            textEl.textContent = str.slice(0, ch);
+          } else {
+            deleting = false;
+            si = (si + 1) % strings.length;
+            pauseTicks = pauseBetweenWords;
+          }
+        }
+      }, 90);
+    }
+
+    function initSkillProficiencyBars() {
+      if (window.__skillBarsInit) return;
+      window.__skillBarsInit = true;
+      const fills = document.querySelectorAll(".skill-bar-fill");
+      if (!fills.length) return;
+      const io = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            if (el.dataset.done) return;
+            const t = el.getAttribute("data-target");
+            if (!t) return;
+            el.dataset.done = "1";
+            requestAnimationFrame(() => {
+              el.style.width = `${t}%`;
+            });
+          });
+        },
+        { threshold: 0.15 }
+      );
+      fills.forEach(f => io.observe(f));
+    }
+
+    function boot() {
+      (async () => {
+        try {
+          await loadSections();
+          initInteractions();
+          document.body.classList.add("loaded");
+        } catch (error) {
+          console.error(error);
+        }
+      })();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", boot);
+    } else {
+      boot();
+    }
   </script>
 </body>
 </html>
