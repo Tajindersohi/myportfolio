@@ -2176,3 +2176,896 @@ body.loaded .hero-content {
     align-items: center;
   }
 }
+
+/* =======================================================================
+   HERO SECTION — ts-hero.css
+   Place in: assets/css/ts-hero.css
+   Import in your main style.css: @import url('./ts-hero.css');
+   OR add <link rel="stylesheet" href="./assets/css/ts-hero.css"> in <head>
+   ======================================================================= */
+
+/* ─────────────────────────────────────────
+   DESIGN TOKENS — edit here to retheme
+   ─────────────────────────────────────────*/
+:root {
+  /* Core palette */
+  --ts-violet:        #7c3aed;
+  --ts-violet-light:  #a855f7;
+  --ts-cyan:          #06b6d4;
+  --ts-cyan-light:    #22d3ee;
+  --ts-indigo:        #4338ca;
+
+  /* Glow intensities */
+  --ts-glow-violet:   rgba(124, 58, 237, 0.55);
+  --ts-glow-cyan:     rgba(6, 182, 212, 0.45);
+  --ts-glow-soft:     rgba(124, 58, 237, 0.18);
+
+  /* Backgrounds */
+  --ts-bg:            #050914;
+  --ts-bg-2:          #0d1526;
+  --ts-glass-bg:      rgba(13, 21, 38, 0.55);
+  --ts-glass-border:  rgba(255, 255, 255, 0.08);
+
+  /* Text */
+  --ts-text:          #f1f5f9;
+  --ts-text-muted:    #64748b;
+
+  /* Gradient */
+  --ts-gradient:      linear-gradient(135deg, var(--ts-violet), var(--ts-cyan));
+  --ts-gradient-text: linear-gradient(135deg, #a855f7, #06b6d4);
+
+  /* Motion */
+  --ts-ease:          cubic-bezier(0.16, 1, 0.3, 1);
+  --ts-fast:          0.25s;
+  --ts-mid:           0.5s;
+  --ts-slow:          0.8s;
+}
+
+/* ─────────────────────────────────────────
+   KEYFRAMES
+   ─────────────────────────────────────────*/
+@keyframes ts-fade-up {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ts-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(var(--float-amp, -12px)); }
+}
+
+@keyframes ts-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes ts-pulse-dot {
+  0%   { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(52, 211, 153, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+}
+
+@keyframes ts-orb-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(3%, -4%) scale(1.06); }
+  66%  { transform: translate(-2%, 3%) scale(0.97); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes ts-grid-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes ts-ring-draw {
+  from { stroke-dashoffset: 201; }
+  to   { stroke-dashoffset: 5; }
+}
+
+@keyframes ts-bar-grow {
+  from { width: 0; }
+  to   { width: var(--w, 0%); }
+}
+
+@keyframes ts-chevron {
+  0%, 100% { transform: translateY(0); opacity: .4; }
+  50%       { transform: translateY(8px); opacity: .7; }
+}
+
+@keyframes ts-rotate-ring {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ts-aurora-pulse {
+  0%, 100% { opacity: .14; }
+  50%       { opacity: .22; }
+}
+
+/* ─────────────────────────────────────────
+   ANIMATION UTILITY
+   ─────────────────────────────────────────*/
+.ts-anim-fade-up {
+  opacity: 0;
+  animation: ts-fade-up var(--ts-slow) var(--ts-ease) forwards;
+  animation-delay: var(--delay, 0s);
+}
+
+.ts-float {
+  animation: ts-float var(--float-dur, 6s) ease-in-out var(--float-delay, 0s) infinite;
+}
+
+/* ─────────────────────────────────────────
+   GRADIENT TEXT
+   ─────────────────────────────────────────*/
+.ts-gradient-text {
+  background: var(--ts-gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ─────────────────────────────────────────
+   HERO ROOT
+   ─────────────────────────────────────────*/
+.ts-hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--ts-bg);
+  padding: 0 32px;
+}
+
+/* ─────────────────────────────────────────
+   AURORA BACKGROUND
+   ─────────────────────────────────────────*/
+.ts-hero__aurora {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ts-aurora__orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: ts-orb-drift 18s ease-in-out infinite alternate;
+}
+
+.ts-aurora__orb--violet {
+  width: 680px;
+  height: 680px;
+  top: -18%;
+  left: -12%;
+  background: radial-gradient(circle, rgba(124, 58, 237, .28) 0%, transparent 70%);
+  animation-duration: 22s;
+  animation: ts-aurora-pulse 8s ease-in-out infinite, ts-orb-drift 22s ease-in-out infinite alternate;
+}
+
+.ts-aurora__orb--cyan {
+  width: 560px;
+  height: 560px;
+  bottom: -14%;
+  right: -8%;
+  background: radial-gradient(circle, rgba(6, 182, 212, .22) 0%, transparent 70%);
+  animation-duration: 26s;
+  animation-delay: -6s;
+  animation: ts-aurora-pulse 10s ease-in-out 3s infinite, ts-orb-drift 26s ease-in-out -6s infinite alternate;
+}
+
+.ts-aurora__orb--indigo {
+  width: 400px;
+  height: 400px;
+  top: 40%;
+  left: 38%;
+  background: radial-gradient(circle, rgba(67, 56, 202, .18) 0%, transparent 70%);
+  animation-duration: 30s;
+  animation-delay: -12s;
+  animation: ts-orb-drift 30s ease-in-out -12s infinite alternate;
+}
+
+.ts-hero__grid-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  animation: ts-grid-fade 1.5s ease forwards .5s;
+}
+
+/* Noise texture overlay */
+.ts-hero__noise {
+  position: absolute;
+  inset: 0;
+  opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* ─────────────────────────────────────────
+   INNER SPLIT LAYOUT
+   ─────────────────────────────────────────*/
+.ts-hero__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  max-width: 1260px;
+  width: 100%;
+  min-height: 100vh;
+  padding: 120px 0 80px;
+}
+
+/* ─────────────────────────────────────────
+   LEFT COLUMN
+   ─────────────────────────────────────────*/
+.ts-hero__left {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Availability badge */
+.ts-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.ts-badge--available {
+  background: rgba(52, 211, 153, .08);
+  border: 1px solid rgba(52, 211, 153, .25);
+  color: #34d399;
+}
+
+.ts-badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #34d399;
+  animation: ts-pulse-dot 2s infinite;
+  flex-shrink: 0;
+}
+
+/* Heading */
+.ts-hero__heading {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ts-hero__greeting {
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--ts-text-muted);
+  letter-spacing: .02em;
+}
+
+.ts-hero__name {
+  font-size: clamp(52px, 7vw, 88px);
+  font-weight: 700;
+  letter-spacing: -.04em;
+  line-height: 1.0;
+}
+
+.ts-hero__tagline {
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 700;
+  color: var(--ts-text);
+  letter-spacing: -.02em;
+  line-height: 1.2;
+}
+
+.ts-hero__tagline em {
+  font-style: normal;
+  background: var(--ts-gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Typewriter */
+.ts-hero__typewriter {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ts-cyan-light);
+  letter-spacing: .03em;
+  min-height: 1.5em;
+  margin: 0;
+}
+
+.ts-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  animation: ts-cursor-blink 1s step-end infinite;
+  font-weight: 300;
+  color: var(--ts-cyan);
+}
+
+/* Description */
+.ts-hero__desc {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--ts-text-muted);
+  max-width: 480px;
+  margin: 0;
+}
+
+/* CTA buttons */
+.ts-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+.ts-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 32px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: transform var(--ts-fast) ease, box-shadow var(--ts-fast) ease, border-color var(--ts-fast) ease;
+}
+
+.ts-btn--primary {
+  background: var(--ts-gradient);
+  color: #fff;
+  box-shadow: 0 0 28px var(--ts-glow-violet);
+}
+
+.ts-btn--primary:hover {
+  transform: scale(1.04) translateY(-1px);
+  box-shadow: 0 0 48px var(--ts-glow-violet), 0 0 80px var(--ts-glow-cyan);
+}
+
+.ts-btn--ghost {
+  background: transparent;
+  color: var(--ts-text);
+  border: 1px solid rgba(255, 255, 255, .15);
+}
+
+.ts-btn--ghost:hover {
+  border-color: var(--ts-violet-light);
+  color: var(--ts-violet-light);
+  transform: scale(1.02);
+}
+
+/* Magnetic effect (JS-driven) */
+.ts-magnetic { transition: transform .15s ease-out; }
+
+/* Tech stack pills */
+.ts-hero__stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ts-stack-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid rgba(6, 182, 212, .22);
+  color: var(--ts-cyan);
+  background: rgba(6, 182, 212, .05);
+  transition: border-color var(--ts-fast) ease, background var(--ts-fast) ease;
+}
+
+.ts-stack-pill:hover {
+  border-color: var(--ts-cyan);
+  background: rgba(6, 182, 212, .1);
+}
+
+/* Social icons */
+.ts-hero__socials {
+  display: flex;
+  gap: 12px;
+}
+
+.ts-social {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--ts-glass-border);
+  display: grid;
+  place-items: center;
+  color: var(--ts-text);
+  text-decoration: none;
+  font-size: 16px;
+  background: var(--ts-glass-bg);
+  backdrop-filter: blur(12px);
+  transition: transform var(--ts-fast) ease, border-color var(--ts-fast) ease, color var(--ts-fast) ease;
+  overflow: hidden;
+}
+
+.ts-social__glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  opacity: 0;
+  background: var(--ts-gradient);
+  transition: opacity var(--ts-fast) ease;
+  z-index: 0;
+}
+
+.ts-social i { position: relative; z-index: 1; }
+
+.ts-social:hover {
+  transform: translateY(-3px) scale(1.08);
+  border-color: var(--ts-violet-light);
+  color: #fff;
+  box-shadow: 0 8px 28px var(--ts-glow-violet);
+}
+
+.ts-social:hover .ts-social__glow { opacity: 1; }
+
+/* Stats row */
+.ts-hero__stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 16px 0;
+  border-top: 1px solid var(--ts-glass-border);
+  margin-top: 4px;
+}
+
+.ts-stat {
+  flex: 1;
+  text-align: center;
+}
+
+.ts-stat__num {
+  display: block;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ts-text);
+  letter-spacing: -.02em;
+}
+
+.ts-stat__label {
+  display: block;
+  font-size: 12px;
+  color: var(--ts-text-muted);
+  margin-top: 3px;
+}
+
+.ts-stat__sep {
+  width: 1px;
+  height: 40px;
+  background: var(--ts-glass-border);
+}
+
+/* ─────────────────────────────────────────
+   RIGHT COLUMN — floating UI panel
+   ─────────────────────────────────────────*/
+.ts-hero__right {
+  position: relative;
+  height: 620px;
+}
+
+/* Glow blobs behind cards */
+.ts-right__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.ts-right__blob--1 {
+  width: 340px;
+  height: 340px;
+  top: 5%;
+  right: -5%;
+  background: radial-gradient(circle, rgba(124, 58, 237, .3) 0%, transparent 70%);
+}
+
+.ts-right__blob--2 {
+  width: 280px;
+  height: 280px;
+  bottom: 8%;
+  left: 0;
+  background: radial-gradient(circle, rgba(6, 182, 212, .25) 0%, transparent 70%);
+}
+
+/* ─────────────────────────────────────────
+   GLASS CARD BASE
+   ─────────────────────────────────────────*/
+.ts-card {
+  position: absolute;
+  background: var(--ts-glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--ts-glass-border);
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, .35), inset 0 1px 0 rgba(255,255,255,.07);
+  transition: box-shadow var(--ts-fast) ease, transform var(--ts-fast) ease;
+}
+
+.ts-card:hover {
+  box-shadow: 0 16px 64px rgba(0, 0, 0, .45), 0 0 0 1px rgba(124, 58, 237, .3), inset 0 1px 0 rgba(255,255,255,.1);
+}
+
+/* ── Code Window card ── */
+.ts-card--code {
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.ts-code-win__bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, .03);
+  border-bottom: 1px solid var(--ts-glass-border);
+}
+
+.ts-code-win__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.ts-code-win__dot--red    { background: #ff5f56; }
+.ts-code-win__dot--yellow { background: #ffbd2e; }
+.ts-code-win__dot--green  { background: #27c93f; }
+
+.ts-code-win__title {
+  margin-left: 8px;
+  font-family: ui-monospace, "Cascadia Code", monospace;
+  font-size: 11px;
+  color: var(--ts-text-muted);
+}
+
+.ts-code-win__body {
+  margin: 0;
+  padding: 18px 20px 16px;
+  font-family: ui-monospace, "Cascadia Code", monospace;
+  font-size: 13px;
+  line-height: 1.85;
+  overflow: hidden;
+}
+
+.ts-code-win__body code { white-space: pre; }
+
+.ts-code-win__cursor-line {
+  height: 2px;
+  background: var(--ts-gradient);
+  margin: 0 20px 14px;
+  border-radius: 2px;
+  width: 60px;
+  opacity: .7;
+  animation: ts-cursor-blink 1.2s ease-in-out infinite;
+}
+
+/* Syntax colours */
+.ts-c-keyword { color: #c084fc; }
+.ts-c-var     { color: #67e8f9; }
+.ts-c-string  { color: #86efac; }
+.ts-c-punc    { color: #94a3b8; }
+
+/* ── Activity card ── */
+.ts-card--activity {
+  top: 220px;
+  right: -20px;
+  width: 240px;
+  padding: 16px;
+}
+
+.ts-activity__header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ts-text-muted);
+  margin-bottom: 14px;
+}
+
+.ts-activity__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  animation: ts-pulse-dot 2s infinite;
+}
+
+.ts-activity__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.ts-activity__item:last-child { margin-bottom: 0; }
+
+.ts-activity__icon {
+  font-size: 15px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.ts-activity__icon--violet { color: var(--ts-violet-light); }
+.ts-activity__icon--cyan   { color: var(--ts-cyan); }
+.ts-activity__icon--green  { color: #34d399; }
+
+.ts-activity__title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ts-text);
+  margin: 0 0 2px;
+}
+
+.ts-activity__sub {
+  font-size: 11px;
+  color: var(--ts-text-muted);
+  margin: 0;
+  font-family: ui-monospace, monospace;
+}
+
+/* ── Performance card ── */
+.ts-card--perf {
+  bottom: 30px;
+  left: 10px;
+  width: 200px;
+  padding: 16px 18px;
+}
+
+.ts-perf__label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ts-text-muted);
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.ts-perf__score-ring {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 14px;
+}
+
+.ts-ring-svg {
+  width: 80px;
+  height: 80px;
+  transform: rotate(-90deg);
+}
+
+.ts-ring__track {
+  fill: none;
+  stroke: rgba(255, 255, 255, .08);
+  stroke-width: 6;
+}
+
+.ts-ring__fill {
+  fill: none;
+  stroke: url(#ts-ring-grad);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 201;
+  stroke-dashoffset: 201;
+  animation: ts-ring-draw 1.8s var(--ts-ease) 1s forwards;
+}
+
+.ts-perf__score-num {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ts-text);
+}
+
+.ts-perf__bars { display: flex; flex-direction: column; gap: 8px; }
+
+.ts-perf__bar-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--ts-text-muted);
+}
+
+.ts-perf__bar-row span:first-child { width: 22px; flex-shrink: 0; }
+.ts-perf__bar-row span:last-child  { width: 28px; flex-shrink: 0; text-align: right; }
+
+.ts-perf__bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, .07);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.ts-perf__bar-fill {
+  height: 100%;
+  width: 0;
+  background: var(--ts-gradient);
+  border-radius: 2px;
+  animation: ts-bar-grow 1.6s var(--ts-ease) 1.2s forwards;
+}
+
+/* ── Bubble stat cards ── */
+.ts-card--bubble {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  padding: 16px 20px;
+  width: 100px;
+}
+
+.ts-card--bubble   { top: 120px; left: -20px; }
+.ts-card--bubble-2 { bottom: 120px; right: -20px; }
+
+.ts-bubble__icon {
+  font-size: 20px;
+  background: var(--ts-gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.ts-bubble__icon--cyan {
+  background: linear-gradient(135deg, var(--ts-cyan), var(--ts-cyan-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+.ts-bubble__num {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ts-text);
+  line-height: 1;
+}
+
+.ts-bubble__label {
+  font-size: 10px;
+  color: var(--ts-text-muted);
+  line-height: 1.3;
+}
+
+/* ── Decorative rotating ring ── */
+.ts-deco-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: linear-gradient(var(--ts-bg), var(--ts-bg)) padding-box,
+              conic-gradient(from 0deg, var(--ts-violet), var(--ts-cyan), var(--ts-indigo), var(--ts-violet)) border-box;
+  opacity: .12;
+  pointer-events: none;
+  animation: ts-rotate-ring 20s linear infinite, ts-float 9s ease-in-out -5s infinite;
+}
+
+/* ─────────────────────────────────────────
+   SVG DEFS (gradient for ring)
+   ─────────────────────────────────────────*/
+/* Injected by JS — see hero-init.js */
+
+/* ─────────────────────────────────────────
+   SCROLL HINT
+   ─────────────────────────────────────────*/
+.ts-hero__scroll-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  color: var(--ts-text-muted);
+  opacity: .4;
+  z-index: 3;
+  animation: ts-chevron 2s ease-in-out infinite;
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE — tablet (1024px)
+   ─────────────────────────────────────────*/
+@media (max-width: 1024px) {
+  .ts-hero__inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding-top: 110px;
+    padding-bottom: 60px;
+    min-height: auto;
+  }
+
+  .ts-hero__right {
+    height: 400px;
+    max-width: 560px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .ts-card--code {
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+
+  .ts-card--activity {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    width: 210px;
+  }
+
+  .ts-card--perf {
+    bottom: 0;
+    left: 0;
+  }
+
+  .ts-card--bubble   { top: 30%; left: -10px; }
+  .ts-card--bubble-2 { bottom: 45%; right: -10px; }
+
+  .ts-deco-ring { width: 340px; height: 340px; }
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE — mobile (640px)
+   ─────────────────────────────────────────*/
+@media (max-width: 640px) {
+  .ts-hero { padding: 0 20px; }
+
+  .ts-hero__inner { gap: 36px; padding-top: 96px; }
+
+  .ts-hero__name { font-size: 48px; }
+
+  .ts-hero__tagline { font-size: 20px; }
+
+  .ts-hero__right { height: 320px; }
+
+  .ts-card--activity { display: none; }
+
+  .ts-card--bubble,
+  .ts-card--bubble-2 { display: none; }
+
+  .ts-hero__stats {
+    flex-direction: row;
+  }
+
+  .ts-btn { padding: 12px 26px; font-size: 14px; }
+}

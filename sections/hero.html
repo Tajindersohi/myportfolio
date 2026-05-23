@@ -1,65 +1,218 @@
-<section class="hero" id="home" aria-label="Introduction">
-  <div class="hero-atmosphere" aria-hidden="true">
-    <div class="hero-mesh"></div>
-    <div class="hero-orb-shell orb-1">
-      <div class="hero-orb"></div>
-    </div>
-    <div class="hero-orb-shell orb-2">
-      <div class="hero-orb"></div>
-    </div>
+<!-- ============================================================
+     HERO SECTION — drop this into sections/hero.html
+     Replaces your existing sections/hero.html completely
+     ============================================================ -->
+<section class="ts-hero" id="home" aria-label="Introduction">
+
+  <!-- ── Aurora background layer ── -->
+  <div class="ts-hero__aurora" aria-hidden="true">
+    <div class="ts-aurora__orb ts-aurora__orb--violet"></div>
+    <div class="ts-aurora__orb ts-aurora__orb--cyan"></div>
+    <div class="ts-aurora__orb ts-aurora__orb--indigo"></div>
+    <canvas id="ts-hero-grid" class="ts-hero__grid-canvas"></canvas>
+    <div class="ts-hero__noise"></div>
   </div>
 
-  <div class="hero-grid no-image">
-    <div class="hero-content">
-      <span class="badge">Software Engineer</span>
+  <!-- ── Main split layout ── -->
+  <div class="ts-hero__inner">
 
-      <h1 class="hero-title">
-        Hi, I'm <span class="gradient-text hero-name">Tajinder</span><br />
-        <span class="hero-line-white">Building the Future of Web</span>
+    <!-- ════════════════════════════
+         LEFT COLUMN — copy / CTA
+         ════════════════════════════ -->
+    <div class="ts-hero__left">
+
+      <!-- Availability badge -->
+      <div class="ts-badge ts-badge--available ts-anim-fade-up" style="--delay:0s">
+        <span class="ts-badge__dot"></span>
+        Available for work
+      </div>
+
+      <!-- Heading -->
+      <h1 class="ts-hero__heading ts-anim-fade-up" style="--delay:.1s">
+        <span class="ts-hero__greeting">Hi, I'm</span>
+        <span class="ts-hero__name ts-gradient-text">Tajinder</span>
+        <span class="ts-hero__tagline">Building the<br><em>Future of Web</em></span>
       </h1>
 
-      <p class="subtitle">MERN Stack Engineer - SaaS Builder - UI Motion Specialist</p>
-
-      <p class="hero-typewriter" aria-live="polite">
-        <span class="hero-typewriter-text" id="hero-typewriter-text"></span><span class="hero-typewriter-cursor" aria-hidden="true">|</span>
+      <!-- Typewriter -->
+      <p class="ts-hero__typewriter ts-anim-fade-up" style="--delay:.2s" aria-live="polite">
+        <span id="ts-typed-text"></span><span class="ts-cursor" aria-hidden="true">|</span>
       </p>
 
-      <p class="desc">
-        I design and build scalable, lightning-fast web applications with cinematic interfaces and rock-solid backend architecture.
+      <!-- Description -->
+      <p class="ts-hero__desc ts-anim-fade-up" style="--delay:.3s">
+        I design and build scalable, lightning-fast web applications
+        with cinematic interfaces and rock-solid backend architecture.
       </p>
 
-      <div class="hero-actions">
-        <a href="#about" class="btn magnetic primary">Explore Me</a>
-        <a href="#contact" class="btn magnetic ghost">Hire Me</a>
+      <!-- CTA buttons -->
+      <div class="ts-hero__actions ts-anim-fade-up" style="--delay:.4s">
+        <a href="#about" class="ts-btn ts-btn--primary ts-magnetic">
+          <span>Explore Me</span>
+          <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a href="#contact" class="ts-btn ts-btn--ghost ts-magnetic">
+          <span>Hire Me</span>
+        </a>
       </div>
 
-      <div class="hero-stats reveal">
-        <div class="hero-stat">
-          <span class="hero-stat-num">3+ Years</span>
-          <span class="hero-stat-label">Experience</span>
-        </div>
-        <div class="hero-stat-divider" aria-hidden="true"></div>
-        <div class="hero-stat">
-          <span class="hero-stat-num">20+</span>
-          <span class="hero-stat-label">Projects Delivered</span>
-        </div>
-        <div class="hero-stat-divider" aria-hidden="true"></div>
-        <div class="hero-stat">
-          <span class="hero-stat-num">10+</span>
-          <span class="hero-stat-label">Happy Clients</span>
-        </div>
+      <!-- Tech stack pills -->
+      <div class="ts-hero__stack ts-anim-fade-up" style="--delay:.5s" aria-label="Tech stack">
+        <span class="ts-stack-pill">React</span>
+        <span class="ts-stack-pill">Node.js</span>
+        <span class="ts-stack-pill">MongoDB</span>
+        <span class="ts-stack-pill">Express</span>
+        <span class="ts-stack-pill">Tailwind</span>
+        <span class="ts-stack-pill">REST API</span>
       </div>
 
-      <div class="socials" aria-label="Social profiles">
-        <a href="https://linkedin.com/in/tajinder-sohi-251817221/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
-        <a href="https://github.com/Tajindersohi" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github" aria-hidden="true"></i></a>
-        <a href="https://instagram.com/_sohi_lucky/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+      <!-- Social icons -->
+      <div class="ts-hero__socials ts-anim-fade-up" style="--delay:.6s" aria-label="Social profiles">
+        <a href="https://linkedin.com/in/tajinder-sohi-251817221/" target="_blank" rel="noopener noreferrer" class="ts-social" aria-label="LinkedIn">
+          <i class="fab fa-linkedin" aria-hidden="true"></i>
+          <span class="ts-social__glow"></span>
+        </a>
+        <a href="https://github.com/Tajindersohi" target="_blank" rel="noopener noreferrer" class="ts-social" aria-label="GitHub">
+          <i class="fab fa-github" aria-hidden="true"></i>
+          <span class="ts-social__glow"></span>
+        </a>
+        <a href="https://instagram.com/_sohi_lucky/" target="_blank" rel="noopener noreferrer" class="ts-social" aria-label="Instagram">
+          <i class="fab fa-instagram" aria-hidden="true"></i>
+          <span class="ts-social__glow"></span>
+        </a>
+        <a href="#" class="ts-social" aria-label="Twitter">
+          <i class="fab fa-twitter" aria-hidden="true"></i>
+          <span class="ts-social__glow"></span>
+        </a>
+      </div>
+
+      <!-- Stats row -->
+      <div class="ts-hero__stats ts-anim-fade-up" style="--delay:.7s">
+        <div class="ts-stat">
+          <span class="ts-stat__num">3+</span>
+          <span class="ts-stat__label">Years Exp.</span>
+        </div>
+        <div class="ts-stat__sep" aria-hidden="true"></div>
+        <div class="ts-stat">
+          <span class="ts-stat__num">20+</span>
+          <span class="ts-stat__label">Projects</span>
+        </div>
+        <div class="ts-stat__sep" aria-hidden="true"></div>
+        <div class="ts-stat">
+          <span class="ts-stat__num">10+</span>
+          <span class="ts-stat__label">Clients</span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="scroll-indicator" aria-hidden="true">
+    <!-- ════════════════════════════
+         RIGHT COLUMN — floating UI
+         ════════════════════════════ -->
+    <div class="ts-hero__right ts-anim-fade-up" style="--delay:.25s" aria-hidden="true">
+
+      <!-- Decorative glow blobs behind cards -->
+      <div class="ts-right__blob ts-right__blob--1"></div>
+      <div class="ts-right__blob ts-right__blob--2"></div>
+
+      <!-- ── Card: Code Window ── -->
+      <div class="ts-card ts-card--code ts-float" style="--float-dur:6s;--float-amp:-14px">
+        <div class="ts-code-win__bar">
+          <span class="ts-code-win__dot ts-code-win__dot--red"></span>
+          <span class="ts-code-win__dot ts-code-win__dot--yellow"></span>
+          <span class="ts-code-win__dot ts-code-win__dot--green"></span>
+          <span class="ts-code-win__title">app.js</span>
+        </div>
+        <pre class="ts-code-win__body"><code><span class="ts-c-keyword">const</span> <span class="ts-c-var">dev</span> = {
+  name<span class="ts-c-punc">:</span> <span class="ts-c-string">'Tajinder Sohi'</span>,
+  role<span class="ts-c-punc">:</span> <span class="ts-c-string">'Software Engineer'</span>,
+  stack<span class="ts-c-punc">:</span> [<span class="ts-c-string">'React'</span>, <span class="ts-c-string">'Node'</span>, <span class="ts-c-string">'Mongo'</span>],
+  passion<span class="ts-c-punc">:</span> <span class="ts-c-string">'Building fast UIs'</span>
+}<span class="ts-c-punc">;</span>
+<span class="ts-c-keyword">export default</span> dev<span class="ts-c-punc">;</span>
+</code></pre>
+        <div class="ts-code-win__cursor-line"></div>
+      </div>
+
+      <!-- ── Card: Live Activity ── -->
+      <div class="ts-card ts-card--activity ts-float" style="--float-dur:7s;--float-amp:-10px;--float-delay:-2s">
+        <div class="ts-activity__header">
+          <span class="ts-activity__dot"></span>
+          Live Activity
+        </div>
+        <div class="ts-activity__item">
+          <i class="fas fa-code-commit ts-activity__icon ts-activity__icon--violet"></i>
+          <div>
+            <p class="ts-activity__title">Pushed 3 commits</p>
+            <p class="ts-activity__sub">feat: new dashboard layout</p>
+          </div>
+        </div>
+        <div class="ts-activity__item">
+          <i class="fas fa-rocket ts-activity__icon ts-activity__icon--cyan"></i>
+          <div>
+            <p class="ts-activity__title">Deployed to Vercel</p>
+            <p class="ts-activity__sub">Production • 2s build</p>
+          </div>
+        </div>
+        <div class="ts-activity__item">
+          <i class="fas fa-circle-check ts-activity__icon ts-activity__icon--green"></i>
+          <div>
+            <p class="ts-activity__title">PR merged</p>
+            <p class="ts-activity__sub">fix: mobile nav toggle</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Card: Performance ── -->
+      <div class="ts-card ts-card--perf ts-float" style="--float-dur:8s;--float-amp:-8px;--float-delay:-4s">
+        <p class="ts-perf__label">Performance Score</p>
+        <div class="ts-perf__score-ring">
+          <svg viewBox="0 0 80 80" class="ts-ring-svg">
+            <circle cx="40" cy="40" r="32" class="ts-ring__track"/>
+            <circle cx="40" cy="40" r="32" class="ts-ring__fill" id="ts-perf-ring"/>
+          </svg>
+          <span class="ts-perf__score-num">98</span>
+        </div>
+        <div class="ts-perf__bars">
+          <div class="ts-perf__bar-row">
+            <span>LCP</span>
+            <div class="ts-perf__bar"><div class="ts-perf__bar-fill" style="--w:92%"></div></div>
+            <span>1.2s</span>
+          </div>
+          <div class="ts-perf__bar-row">
+            <span>FID</span>
+            <div class="ts-perf__bar"><div class="ts-perf__bar-fill" style="--w:97%"></div></div>
+            <span>12ms</span>
+          </div>
+          <div class="ts-perf__bar-row">
+            <span>CLS</span>
+            <div class="ts-perf__bar"><div class="ts-perf__bar-fill" style="--w:99%"></div></div>
+            <span>0.01</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Card: Mini stat bubbles ── -->
+      <div class="ts-card ts-card--bubble ts-float" style="--float-dur:5.5s;--float-amp:-12px;--float-delay:-1s">
+        <i class="fas fa-star ts-bubble__icon"></i>
+        <span class="ts-bubble__num">10+</span>
+        <span class="ts-bubble__label">Happy Clients</span>
+      </div>
+
+      <div class="ts-card ts-card--bubble ts-card--bubble-2 ts-float" style="--float-dur:7.5s;--float-amp:-9px;--float-delay:-3.5s">
+        <i class="fas fa-bolt ts-bubble__icon ts-bubble__icon--cyan"></i>
+        <span class="ts-bubble__num">20+</span>
+        <span class="ts-bubble__label">Projects</span>
+      </div>
+
+      <!-- ── Decorative floating ring ── -->
+      <div class="ts-deco-ring ts-float" style="--float-dur:9s;--float-amp:-6px;--float-delay:-5s"></div>
+
+    </div><!-- /.ts-hero__right -->
+  </div><!-- /.ts-hero__inner -->
+
+  <!-- Scroll hint -->
+  <div class="ts-hero__scroll-hint" aria-hidden="true">
     <i class="fas fa-chevron-down"></i>
   </div>
+
 </section>
